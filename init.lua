@@ -98,11 +98,17 @@ vim.api.nvim_set_keymap('t', 'fd', '<Esc>', { noremap = true })
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-vim.keymap.set('i', 'jk', '<ESC>')
-vim.keymap.set('i', 'kj', '<ESC>')
 
-vim.keymap.set('v', 'jk', '<ESC>')
-vim.keymap.set('v', 'kj', '<ESC>')
+-- My custom
+-- Set `ii` to escape in insert and visual modes
+vim.api.nvim_set_keymap('i', 'ii', '<Esc>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', 'ii', '<Esc>', { noremap = true, silent = true })
+
+-- For command-line mode, use <C-c> instead of <Esc>
+vim.api.nvim_set_keymap('c', 'ii', '<C-c>', { noremap = true, silent = true })
+
+-- Map for terminal mode
+vim.api.nvim_set_keymap('t', 'ii', '<C-\\><C-n>', { noremap = true, silent = true })
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
