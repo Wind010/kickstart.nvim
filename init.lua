@@ -172,11 +172,18 @@ vim.o.confirm = true
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-vim.keymap.set('i', 'jk', '<ESC>')
-vim.keymap.set('i', 'kj', '<ESC>')
 
-vim.keymap.set('v', 'jk', '<ESC>')
-vim.keymap.set('v', 'kj', '<ESC>')
+-- My custom
+-- Set `ii` to escape in insert and visual modes
+vim.api.nvim_set_keymap('i', 'ii', '<Esc>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', 'ii', '<Esc>', { noremap = true, silent = true })
+
+-- For command-line mode, use <C-c> instead of <Esc>
+vim.api.nvim_set_keymap('c', 'ii', '<C-c>', { noremap = true, silent = true })
+
+-- Map for terminal mode
+vim.api.nvim_set_keymap('t', 'ii', '<C-\\><C-n>', { noremap = true, silent = true })
+
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -949,7 +956,7 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = { 'bash', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -989,12 +996,13 @@ require('lazy').setup({
   --    This is the easiest way to modularize your config.
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
-  -- { import = 'custom.plugins' },
+{ import = 'custom.plugins' },
   --
   -- For additional information with loading, sourcing and examples see `:help lazy.nvim-🔌-plugin-spec`
   -- Or use telescope!
   -- In normal mode type `<space>sh` then write `lazy.nvim-plugin`
   -- you can continue same window with `<space>sr` which resumes last telescope search
+
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
@@ -1015,6 +1023,7 @@ require('lazy').setup({
       lazy = '💤 ',
     },
   },
+
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
